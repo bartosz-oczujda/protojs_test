@@ -15,7 +15,7 @@
         var socket = io('http://localhost:3000');
         socket.on('proto', function (data) {
 
-            var msg = Message.decode(data.buffer);
+            var msg = Message.decode64(data);
 
             console.log(data);
         });

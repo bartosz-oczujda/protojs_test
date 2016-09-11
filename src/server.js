@@ -10,7 +10,7 @@ var builder = ProtoBuf.loadProtoFile(path.join(__dirname, "www", "SetAllianceSta
 
 var msg = new Message();
 msg.status = 5;
-msg.aState = 2;
+msg.aState = 2; //marked as optional, but if not filled, throws an error
 
 var bb = msg.encode();
 var bufferString = String.fromCharCode.apply(null, new Uint8Array(bb.buffer));
@@ -23,7 +23,7 @@ var playerCount = 0;
 io.on("connection", function (socket) {
     console.log("client connected, broadcastin spawn");
 
-    socket.emit("proto", bb);
+    socket.emit("proto", base64String);
     playerCount++;
 
     for (var i = 0; i < playerCount; i++) {
