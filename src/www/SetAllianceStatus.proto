@@ -1,0 +1,21 @@
+package com.goodgamestudios.ranch.controller.protobuf.alliance.management.setalliancestatus;
+
+option java_package = "com.altigi.ranch.game.protobuf.alliance.management";
+import "Common.proto";
+
+message Request {
+	required common.AllianceStatus aState = 1;
+}
+
+message Response {
+	enum Status {
+		OK 						= 1;
+		GENERAL_ERROR			= 2;
+		NO_ACCESS				= 3;//player has not the necessary rights
+		NO_TARGET				= 4;
+		LIMIT_REACHED           = 5;
+	}
+
+	required Status status 		            = 1;
+	optional common.AllianceStatus aState   = 2;
+}

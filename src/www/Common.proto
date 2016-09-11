@@ -1,0 +1,215 @@
+package com.goodgamestudios.ranch.controller.protobuf.common;
+
+option java_package = "com.altigi.ranch.game.protobuf";
+option java_outer_classname = "common";
+
+message XP {
+	required int64 xp 		= 1;
+	required int32 level 	= 2;
+	required int64 xpCLvl 	= 3; // current
+	required int64 xpNLvl 	= 4; // next
+}
+
+message Currency {
+	required int64 cash = 1;
+	required int64 gold = 2;
+}
+
+message PlayerIdentity {
+	required int32 			playerID 	= 1;
+	required string 		name 		= 2;
+	required bool 			isMod 		= 3;
+	required string 		email 		= 4;
+	required PlayerConfig	config 		= 5;
+}
+
+message PlayerConfig {
+	required bool isPayUser				= 1;
+	required bool mailConfirmed			= 2;
+	required string hiddenNotifications = 3;
+}
+
+enum MessageType {
+	DEFAULT					= 1;
+	SYSTEM					= 2;
+	COMA					= 3;
+	ALLIANCE_INVITATION		= 4;
+	ALLIANCE				= 5;
+}
+
+enum FarmType {
+	GLOBAL			= -1;
+	
+	HOME			= 0;
+	FOOD			= 1;
+	FLOWER			= 2;
+	HORSE_PADDOCK	= 3;
+	COOP_VILLAGE	= 4;
+	
+	ISLAND      	= 10;
+	WINTER			= 11;
+	WINTER_NIGHT	= 12;
+	CANDY       	= 13;
+	WINTER_NIGHT_XMAS = 14;
+}
+
+enum DelayedActionType {
+	LAST_CHANCE_TO_SKIP = 1;
+	SURVEY				= 2;
+	PRIME_SPENDING		= 3;
+	COLLECT_LAST_CHANCE = 4;
+	SEARCH_LAST_CHANCE 	= 5;
+	MULTI_COLLECT_LAST_CHANCE   = 6; // (RA-29174)
+	ENHANCE_ITEM_LAST_CHANCE = 7;
+	PAYBACK_OFFER		= 8;
+}
+
+enum AllianceStatus {
+    OPEN 		= 0;
+    SEARCHING	= 1;
+    BASIC		= 2;
+}
+
+//used to access components in the environment 
+enum EnvironmentSlot {
+	HARBOUR						= -50021;	//0, visiting env JSON: wod ID of harbour building
+	SHIP						= -50023;	//1, visiting env JSON: 1 if ship is there, 0 if not. Has no content for own farms, everything is in harbour!
+	AIRPORT						= -50033;	//2, never used on server side
+	HORSE_BARN					= -50047;	//3, visiting env JSON: wod ID of barn
+	GREENHOUSE					= -50051;	//4, visiting env JSON: wod ID of greenhouse
+	GOLDMINE					= -50053;	//5, visiting env JSON: wod ID of gold mine
+	GARAGE						= -50069;	//6, visiting env JSON: [number of farm machines bought/upgraded (=building level), wod ID on ISO]
+	LIBRARY						= -50077;	//7, visiting env JSON: number of permanent boosters bought/upgraded (=building level)
+	FLAG_MAIN					= -50087;	//8, visiting env JSON: wod ID of flag
+	HORSE_TRAINING_DEXTERITY	= -50101;	//10, visiting env JSON: wod ID of training facility
+	HORSE_TRAINING_ENDURANCE	= -50111; 	//11
+	HORSE_TRAINING_STRENGTH		= -50119; 	//12
+	HORSE_COMPETITION			= -50123;	//13, visiting env JSON: wod ID of competition building
+	HORSE_SEASON_BUILDING		= -50129;	//14
+	HORSE_MARKET 				= -50131;	//15, visiting env JSON: wod ID of horse market
+	HORSE_TROPHY_SOCKET         = -50147;	//16, visiting env JSON: [wodId of Building, wodId of trophy (-1 if none is selected)]
+	FRIEND_INVITE_BUILDING      = -50153;	//17
+	MARKET_MAIN                 = -50159;	//18
+	SKYLINE_MAIN                = -50177;	//19
+	FARM_SCHOOL                 = -50207;	//20
+	LESTERS_STASH				= -50221;	//21
+	
+	MARKET_FOOD                 = -50227;
+	MARKET_FLOWER               = -50231;
+	DECO_TOWER                	= -50261;
+	FLAG_FOOD					= -50263;
+	FLAG_FLOWER					= -50273;
+	SKYLINE_FOOD				= -50287;
+	SKYLINE_FLOWER				= -50291;
+	SKYLINE_HORSE               = -50311;
+	FARMSIGN_MAINTOFLOWER       = -50321;
+    FARMSIGN_MAINTOFOOD         = -50329;
+    FARMSIGN_MAINTOCOOP         = -50333;
+    FARMSIGN_FOODTOCANDY        = -50341;
+    FARMSIGN_FOODTOMAIN         = -50359;
+    FARMSIGN_FLOWERTOHORSE      = -50363;
+    FARMSIGN_FLOWERTOMAIN       = -50377;
+    FARMSIGN_HORSETOFLOWER      = -50383;
+    FARMSIGN_HORSETOCOOP        = -50387;
+	SKYLINE_COOP				= -50411;
+	FERRY						= -50417;
+	
+	// some more prime numbers for you:
+	// 50423, 50441, 50459, 50461, 50497, 50503
+}
+
+enum HorseOccupationType {
+    STRENGTH_TRAINING   = 0;
+    ENDURANCE_TRAINING  = 1;
+    DEXTERITY_TRAINING  = 2;
+}
+
+enum HorseType {
+    STARTER   		= 1;
+    DEFAULT_HORSE   = 2;
+    SHOP_HORSE 		= 3;
+    PRIVATE_OFFER 	= 4;
+    BREEDING_HORSE 	= 5;
+}
+
+enum LeagueType {
+	BRONZE 		= 1;
+	SILVER		= 2;
+	GOLD 		= 3;
+	PLATINUM	= 4;
+	DIAMOND		= 5;
+}
+
+enum PVPCompetitionAction {
+	ATTACK = 1;
+	DEFEND = 2;
+}
+
+message CompetitionEnergyData {
+	optional int32 currentEnergy			= 1;
+	optional int32 secondsToNextRegeneration= 2;
+	optional string buyEnergyData			= 3;
+	optional string energyRegenerationData	= 4;
+	optional int32 energyCapacityData		= 5;
+}
+
+message StackedItem {
+	required int32 wod	= 1;
+	required int32 a	= 2;
+}
+
+message StackedItemThreshold {
+	required int32 wod	= 1;
+	required int32 a	= 2;
+	required int32 threshold = 3; // can be any sort of threshold, required amount for donations for example
+}
+
+// generic information about leagues
+message LeagueDivisionInfo {
+	
+	enum Type {
+		Gold 	= 1;
+		Silver	= 2;
+		Bronze	= 3;
+		Rookie	= 4;
+	}
+
+	enum Difficulty {
+	    Easy    = 1;
+	    Medium  = 2;
+	    Hard    = 3;
+
+	    UNSELECTED = 4;
+	}
+	
+	required Type type		= 1;
+	required int32 size		= 2; // max amount of entries in this division, can be -1 for unlimited
+	required int32 amount	= 4; // amount of parallel sub divisions
+	required int32 rewardset= 5; // rewardset id (from items.xml)
+	
+	repeated int32 subDivisionIDs = 6; // each division may have multiple sub divisions in parallel, thus each subdivision has an unique ID throughout the whole league
+
+	required int32 promotees	= 7;
+	required int32 relegates	= 8;
+
+}
+
+// how to pay
+enum CostsType {
+	REGULAR	= 1;
+	PREMIUM = 2;
+	// more to come probably..
+}
+
+enum ConstructionStatus {
+	NONE		= 0;
+	BUILD		= 1;
+	FINISHED	= 2;
+	DESTROY		= 3;
+	UPGRADE		= 4;
+}
+
+enum BuildSlotType {
+    PERMANENT_FARMS = 1;
+    TEMP_FARMS      = 2;
+}

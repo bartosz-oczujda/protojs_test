@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Socket</title>
+    <script src="../../lib/long/long.js"></script>         <!-- https://raw.github.com/dcodeIO/Long.js/master/dist/Long.min.js -->
+    <script src="../../lib/bytebuffer/bytebuffer.js"></script> <!-- https://raw.github.com/dcodeIO/ByteBuffer.js/master/dist/ByteBufferAB.min.js -->
+    <script src="../../lib/protobuf/protobuf.js"></script>     <!-- https://raw.github.com/dcodeIO/ProtoBuf.js/master/dist/ProtoBuf.min.js -->
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script>
+
+        var ProtoBuf = dcodeIO.ProtoBuf;
+        var Message = ProtoBuf.loadProtoFile("./SetAllianceStatus.proto").build("com.goodgamestudios.ranch.controller.protobuf.alliance.management.setalliancestatus.Response");
+
+        var socket = io('http://localhost:3000');
+        socket.on('proto', function (data) {
+
+            var msg = Message.decode(data.buffer);
+
+            console.log(data);
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>
